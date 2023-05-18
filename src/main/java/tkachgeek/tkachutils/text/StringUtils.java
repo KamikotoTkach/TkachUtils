@@ -26,8 +26,8 @@ public class StringUtils {
     int writtenPointer = 0;
     int writtenLength = written.length();
     
-    var writtenArray = written.toCharArray();
-    var stringArray = string.toCharArray();
+    char[] writtenArray = written.toCharArray();
+    char[] stringArray = string.toCharArray();
     
     boolean applyMultiplier = true;
     

@@ -1,14 +1,12 @@
 package tkachgeek.tkachutils.files;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import tkachgeek.tkachutils.collections.CollectionUtils;
+
+import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 
 public class FileUtils {
   /**
@@ -16,7 +14,7 @@ public class FileUtils {
    */
   public static String readString(Path path) {
     try {
-      return Files.readString(path, StandardCharsets.UTF_8);
+      CollectionUtils.toString(com.google.common.io.Files.readLines(path.toFile(), StandardCharsets.UTF_8), "", "", true);
     } catch (IOException ignored) {
     }
     return "";
@@ -24,10 +22,12 @@ public class FileUtils {
   
   public static void writeString(Path path, String text) {
     try {
+      File file = path.toFile();
       if (!Files.exists(path)) {
-        com.google.common.io.Files.createParentDirs(path.toFile());
+        com.google.common.io.Files.createParentDirs(file);
+      } else {
       }
-      Files.writeString(path, text, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
+      com.google.common.io.Files.write(text, file, StandardCharsets.UTF_8);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -35,21 +35,21 @@ public class FileUtils {
   
   public static void downloadFileTo(String source, String destination) throws IOException {
     URL url = new URL(source);
-  
+    
     InputStream is = url.openStream();
-    Path destinationPath = Path.of(destination);
+    Path destinationPath = new File(destination).toPath();
     if (!Files.exists(destinationPath)) {
       com.google.common.io.Files.createParentDirs(destinationPath.toFile());
     }
     OutputStream os = new FileOutputStream(destinationPath.toFile());
-  
+    
     byte[] b = new byte[2048];
     int length;
-  
+    
     while ((length = is.read(b)) != -1) {
       os.write(b, 0, length);
     }
-  
+    
     is.close();
     os.close();
   }

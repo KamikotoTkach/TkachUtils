@@ -11,8 +11,8 @@ public class BenchmarkChannel {
   
   public void print(String channel) {
     Logger log = Logger.getLogger(channel);
-    var result = BenchmarkResult.calculate(iterations);
-    var stagesMaxNameLen = Math.max(8, result.keySet()
+    java.util.HashMap<String, BenchmarkResult.StageResult> result = BenchmarkResult.calculate(iterations);
+    int stagesMaxNameLen = Math.max(8, result.keySet()
                                              .stream()
                                              .max(Comparator.comparingInt(String::length))
                                              .get()

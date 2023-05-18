@@ -79,7 +79,7 @@ public class Flow<T> {
   
   public void startHere(JavaPlugin plugin) {
     try {
-      for (var action : actions) {
+      for (FlowAction<T> action : actions) {
         action.run(object);
       }
     } catch (Exception ignored) {

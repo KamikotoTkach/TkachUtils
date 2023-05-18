@@ -35,4 +35,12 @@ public class Expireable {
   public void expireAfter(long ms) {
     expires = ms;
   }
+  
+  public long getTime() {
+    return time;
+  }
+  
+  public long getExpires() {
+    return expires;
+  }
 }

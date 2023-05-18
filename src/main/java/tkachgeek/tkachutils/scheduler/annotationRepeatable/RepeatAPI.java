@@ -24,7 +24,7 @@ public class RepeatAPI {
     long start = System.currentTimeMillis();
     
     try {
-      for (var clazz : ReflectionUtils.getClasses(file, packageName)) {
+      for (Class<?> clazz : ReflectionUtils.getClasses(file, packageName)) {
         i++;
         registered += handle(clazz, plugin);
       }
